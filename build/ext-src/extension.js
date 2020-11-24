@@ -101,10 +101,10 @@ class ReactPanel {
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root"></div>
 				
-				<script nonce="${nonce}">
+				<script>
 					const STORAGE = ${JSON.stringify(this._storage)};
 				</script>
-				<script nonce="${nonce}" src="${scriptUri}"></script>
+				<script src="${scriptUri}"></script>
 			</body>
 			</html>`;
     }

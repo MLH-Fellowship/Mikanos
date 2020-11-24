@@ -33,7 +33,7 @@
     "build": "npm run compile",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "compile": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json && node ./scripts/fix-base.js",
+    "compile": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
     "pretest": "npm run compile"
   },
   "devDependencies": {
