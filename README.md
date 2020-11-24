@@ -10,6 +10,8 @@ This project was bootstrapped with
 
 ## Development
 
+- IMPORTANT: Create `.env` file with `PUBLIC_URL=./` inside
+
 Run following commands in the terminal
 
 ```shell
@@ -30,8 +32,3 @@ Things we did on top of Create React App TypeScript template
 - For all resources we are going to use in the webview, we change their schemes to `vscode-resource`
 - Since we only allow local resources, absolute path for styles/images (e.g., `/static/media/logo.svg`) will not work. We add a `.env` file which sets `PUBLIC_URL` to `./` and after bundling, resource urls will be relative.
 - We add baseUrl `<base href="${vscode.Uri.file(path.join(this._extensionPath, 'build')).with({ scheme: 'vscode-resource' })}/">` and then all relative paths work.
-
-## Connecting Firebase to VSCode
-
-- Since chunking causes major issues with VS Code webviews, `scripts/fix-base.js` has been developed as a post-build script to prepend the vscode required base url (see above) to webpack chunked urls.
-- Unrelated note: This was accomplished by—without exaggeration—the most intense debugging session I've ever had in my life.
