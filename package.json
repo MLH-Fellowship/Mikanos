@@ -13,17 +13,19 @@
     "commands": [
       {
         "command": "react-webview.start",
-        "title": "Start React Webview",
-        "category": "React"
+        "title": "Open",
+        "category": "VSDating"
       }
     ]
   },
   "dependencies": {
     "@types/vscode": "^1.45.1",
     "csstype": "^3.0.5",
+    "firebase": "^7.24.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-tinder-card": "^1.3.1"
+    "react-tinder-card": "^1.3.1",
+    "reactfire": "^2.0.3"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -31,7 +33,7 @@
     "build": "npm run compile",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "compile": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
+    "compile": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json && node ./scripts/fix-base.js",
     "pretest": "npm run compile"
   },
   "devDependencies": {
@@ -39,11 +41,14 @@
     "@types/node": "^14.0.11",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
+    "react-app-rewire-disable-chunks": "0.0.1",
+    "react-app-rewired": "^2.1.6",
     "react-scripts": "^3.4.1",
     "rewire": "^5.0.0",
-    "typescript": "^3.3.1",
-    "terser": "^4.7.0"
+    "terser": "^4.7.0",
+    "typescript": "^3.3.1"
   },
+  "config-overrides-path": "node_modules/react-app-rewire-disable-chunks",
   "browserslist": [
     ">0.2%",
     "not dead",

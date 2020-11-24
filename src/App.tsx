@@ -1,70 +1,33 @@
-import React, { useState } from "react"
-import TinderCard from "react-tinder-card"
-import "./App.css"
+import React, { Component, Suspense } from "react"
+import { render } from "react-dom"
 
-const db = [
-  {
-    name: "Richard Hendricks",
-    url: "https://avatars.dicebear.com/api/avataaars/" + Math.random() + ".svg",
-  },
-  {
-    name: "Erlich Bachman",
-    url: "https://avatars.dicebear.com/api/avataaars/" + Math.random() + ".svg",
-  },
-  {
-    name: "Monica Hall",
-    url: "https://avatars.dicebear.com/api/avataaars/" + Math.random() + ".svg",
-  },
-  {
-    name: "Jared Dunn",
-    url: "https://avatars.dicebear.com/api/avataaars/" + Math.random() + ".svg",
-  },
-  {
-    name: "Dinesh Chugtai",
-    url: "https://avatars.dicebear.com/api/avataaars/" + Math.random() + ".svg",
-  },
-]
+import "firebase/database"
+import {
+  FirebaseAppProvider,
+  useFirestoreDocData,
+  useFirestore,
+} from "reactfire"
 
-function App() {
-  const characters = db
-  const [lastDirection, setLastDirection] = useState()
+import firebaseConfig from "./config/firebase"
 
-  const swiped = (direction: any, nameToDelete: any) => {
-    console.log("removing: " + nameToDelete)
-    setLastDirection(direction)
-  }
+function Burrito() {
+  // easily access the Firestore library
+  const burritoRef = useFirestore().collection("tryreactfire").doc("burrito")
 
-  const outOfFrame = (name: any) => {
-    console.log(name + " left the screen!")
-  }
+  // subscribe to a document for realtime updates. just one line!
+  const data = useFirestoreDocData(burritoRef) as any
 
-  return (
-    <div className="app">
-      <div className="cardContainer">
-        {characters.map((character) => (
-          <div className="swipe">
-            <TinderCard
-              key={character.name}
-              onSwipe={(dir) => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}
-            >
-              <div
-                style={{ backgroundImage: "url(" + character.url + ")" }}
-                className="card"
-              >
-                <h3>{character.name}</h3>
-              </div>
-            </TinderCard>
-          </div>
-        ))}
-      </div>
-      {lastDirection ? (
-        <h2 className="infoText">You swiped {lastDirection}</h2>
-      ) : (
-        <h2 className="infoText" />
-      )}
-    </div>
-  )
+  return <pre>{JSON.stringify(data)}</pre>
 }
 
+function App() {
+  return (
+    <FirebaseAppProvider suspense={false} firebaseConfig={firebaseConfig}>
+      <Suspense fallback={<p>Loading</p>}>
+        <Burrito />
+      </Suspense>
+    </FirebaseAppProvider>
+  )
+}
+//document.baseURI.slice(0,-1)
 export default App
